@@ -48,6 +48,49 @@ Architecture
 - FastAPI app with layers: API -> Service -> Repository -> Models/Utils.
 - In-memory repository by default; swap with DB-specific repo as needed.
 
+Project Structure
+```
+SunRock Assignment/
+├── app/                          # Main application package
+│   ├── __init__.py
+│   ├── main.py                   # FastAPI application entry point
+│   ├── api/                      # API layer
+│   │   ├── __init__.py
+│   │   └── v1/                   # API version 1
+│   │       ├── __init__.py
+│   │       ├── orders.py         # Order API endpoints
+│   │       └── routes.py         # Route definitions
+│   ├── core/                     # Core application logic
+│   │   └── __init__.py
+│   ├── models/                   # Data models
+│   │   ├── __init__.py
+│   │   └── orders.py             # Order data models
+│   ├── repositories/             # Data access layer
+│   │   ├── __init__.py
+│   │   └── orders.py             # Order repository implementation
+│   ├── services/                 # Business logic layer
+│   │   ├── __init__.py
+│   │   └── orders.py             # Order business logic
+│   └── utils/                    # Utility functions
+│       ├── __init__.py
+│       └── time.py               # Time-related utilities
+├── tests/                        # Test suite
+│   ├── test_api.py               # API endpoint tests
+│   ├── test_service.py           # Service layer tests
+│   └── test_time_utils.py        # Utility function tests
+├── requirements.txt              # Python dependencies
+├── README.md                     # Project documentation
+├── IMPLEMENTATION_LOG.md         # Development log
+└── .gitignore                    # Git ignore rules
+```
+
+Layer Responsibilities:
+- **API Layer** (`app/api/`): HTTP request/response handling, input validation
+- **Service Layer** (`app/services/`): Business logic, order processing rules
+- **Repository Layer** (`app/repositories/`): Data persistence, CRUD operations
+- **Models** (`app/models/`): Data structures and validation schemas
+- **Utils** (`app/utils/`): Shared utility functions (time alignment, etc.)
+
 Business Rules
 - Start aligned to quarter-hour (00/15/30/45).
 - Update: if end < now, set start=now, end=now+15m.
